@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Suno.ai Music Generation Prompts</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+        }
+        .slide {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.15);
+            height: auto;
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ffffff;
+            text-align: center;
+        }
+        th {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 0;
+            }
+            .slide {
+                margin: 0.5rem 0;
+            }
+            table, th, td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-template">
+
+<div class="container my-5">
+    <div class="slide">
+        <h1>Advanced Suno.ai Music Generation Prompts</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Use Case</th>
+                    <th>Prompts</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Epic Soundtrack</td>
+                    <td>
+                        Generate an epic soundtrack for a fantasy adventure. Example: "Create an epic orchestral soundtrack with powerful brass, sweeping strings, and dramatic percussion, perfect for a fantasy adventure."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Relaxing Ambient Music</td>
+                    <td>
+                        Create a relaxing ambient track for meditation. Example: "Generate a soothing ambient track with soft pads, gentle melodies, and tranquil soundscapes, ideal for meditation and relaxation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Upbeat Pop Song</td>
+                    <td>
+                        Generate an upbeat pop song. Example: "Create an upbeat pop song with catchy hooks, lively rhythms, and a feel-good vibe, perfect for a summer party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Cinematic Trailer Music</td>
+                    <td>
+                        Create cinematic trailer music. Example: "Generate intense and dramatic trailer music with bold orchestral elements, driving rhythms, and powerful climaxes, ideal for a movie trailer."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Classical Piano Piece</td>
+                    <td>
+                        Generate a classical piano piece. Example: "Compose a beautiful classical piano piece with elegant melodies, flowing arpeggios, and expressive dynamics, reminiscent of the Romantic era."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Electronic Dance Track</td>
+                    <td>
+                        Create an electronic dance track. Example: "Generate a high-energy electronic dance track with pulsating beats, infectious synth lines, and a driving bass, perfect for a nightclub setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Chill Lo-fi Beat</td>
+                    <td>
+                        Generate a chill lo-fi beat. Example: "Create a laid-back lo-fi beat with mellow chords, subtle vinyl crackles, and a smooth groove, ideal for studying or relaxing."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Jazz Ensemble</td>
+                    <td>
+                        Create a jazz ensemble piece. Example: "Compose a lively jazz ensemble piece with swinging rhythms, improvisational solos, and rich harmonies, reminiscent of a classic jazz club."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Horror Soundscape</td>
+                    <td>
+                        Generate a horror soundscape. Example: "Create a dark and eerie horror soundscape with unsettling drones, haunting melodies, and spine-chilling sound effects, perfect for a horror movie."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Upbeat Rock Song</td>
+                    <td>
+                        Generate an upbeat rock song. Example: "Create an energetic rock song with driving guitars, powerful drums, and anthemic choruses, ideal for a live concert."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Calming Nature Sounds</td>
+                    <td>
+                        Generate calming nature sounds. Example: "Create a track featuring calming nature sounds such as gentle rain, rustling leaves, and distant bird calls, perfect for relaxation and sleep."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Retro Synthwave</td>
+                    <td>
+                        Create a retro synthwave track. Example: "Generate a nostalgic synthwave track with vintage synths, driving basslines, and 80s-inspired melodies, perfect for a retro-futuristic vibe."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Acoustic Folk Song</td>
+                    <td>
+                        Generate an acoustic folk song. Example: "Create a heartfelt acoustic folk song with gentle guitar strumming, warm vocals, and rustic melodies, ideal for a cozy, intimate setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fantasy Tavern Music</td>
+                    <td>
+                        Generate fantasy tavern music. Example: "Create lively and upbeat fantasy tavern music with cheerful melodies, traditional instruments, and a festive atmosphere, perfect for a medieval tavern."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Inspirational Corporate Track</td>
+                    <td>
+                        Generate an inspirational corporate track. Example: "Create an uplifting and inspirational corporate track with motivating melodies, upbeat rhythms, and positive energy, ideal for corporate presentations."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dark Industrial Music</td>
+                    <td>
+                        Create dark industrial music. Example: "Generate a dark and gritty industrial track with harsh synths, pounding rhythms, and a dystopian atmosphere, perfect for a cyberpunk setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Calming Classical Guitar</td>
+                    <td>
+                        Generate a calming classical guitar piece. Example: "Create a soothing classical guitar piece with gentle fingerpicking, melodic lines, and warm tones, ideal for relaxation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Adventurous Orchestral Score</td>
+                    <td>
+                        Generate an adventurous orchestral score. Example: "Create an adventurous orchestral score with sweeping strings, bold brass, and dynamic percussion, perfect for an epic quest."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Atmospheric Ambient Music</td>
+                    <td>
+                        Generate atmospheric ambient music. Example: "Create an atmospheric ambient track with lush soundscapes, ethereal textures, and subtle harmonies, ideal for deep focus or relaxation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Happy Ukulele Song</td>
+                    <td>
+                        Generate a happy ukulele song. Example: "Create a cheerful and uplifting ukulele song with catchy melodies, light percussion, and a sunny, carefree vibe, perfect for a summer day."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dramatic Film Score</td>
+                    <td>
+                        Generate a dramatic film score. Example: "Create a dramatic film score with intense orchestral arrangements, emotional crescendos, and a gripping atmosphere, ideal for a thriller."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Peaceful Piano Music</td>
+                    <td>
+                        Generate peaceful piano music. Example: "Create a peaceful and calming piano piece with gentle melodies, soft dynamics, and a serene atmosphere, perfect for relaxation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Energetic Hip-Hop Beat</td>
+                    <td>
+                        Generate an energetic hip-hop beat. Example: "Create a high-energy hip-hop beat with punchy drums, catchy melodies, and a driving rhythm, ideal for an upbeat and motivational vibe."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mystical World Music</td>
+                    <td>
+                        Generate mystical world music. Example: "Create a mystical world music track with exotic instruments, enchanting melodies, and a magical atmosphere, perfect for an otherworldly experience."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dynamic Percussion Ensemble</td>
+                    <td>
+                        Generate a dynamic percussion ensemble piece. Example: "Create a dynamic percussion ensemble piece with rhythmic complexity, diverse percussion instruments, and an energetic performance."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Smooth Jazz Music</td>
+                    <td>
+                        Generate smooth jazz music. Example: "Create a smooth jazz track with laid-back grooves, sultry saxophone melodies, and a relaxed, sophisticated atmosphere, perfect for a late-night setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Epic Battle Music</td>
+                    <td>
+                        Generate epic battle music. Example: "Create an epic battle music track with intense orchestral arrangements, powerful percussion, and dramatic crescendos, ideal for a heroic confrontation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Romantic Acoustic Ballad</td>
+                    <td>
+                        Generate a romantic acoustic ballad. Example: "Create a heartfelt acoustic ballad with tender guitar melodies, emotional vocals, and a warm, intimate atmosphere, perfect for a romantic moment."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ethereal Choir Music</td>
+                    <td>
+                        Generate ethereal choir music. Example: "Create an ethereal choir piece with lush vocal harmonies, serene melodies, and a celestial atmosphere, ideal for a sacred or spiritual setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Upbeat Children’s Song</td>
+                    <td>
+                        Generate an upbeat children’s song. Example: "Create a fun and upbeat children's song with playful melodies, cheerful lyrics, and a lively rhythm, perfect for a kids' sing-along."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ambient Space Music</td>
+                    <td>
+                        Generate ambient space music. Example: "Create an ambient space music track with cosmic soundscapes, gentle pulses, and a sense of wonder, ideal for exploring the mysteries of the universe."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vintage Blues Music</td>
+                    <td>
+                        Generate vintage blues music. Example: "Create a vintage blues track with soulful guitar riffs, expressive vocals, and a laid-back groove, reminiscent of classic blues artists."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Funky Groove</td>
+                    <td>
+                        Generate a funky groove. Example: "Create a funky groove with infectious basslines, syncopated rhythms, and catchy melodies, perfect for a dance party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Reggae Vibes</td>
+                    <td>
+                        Generate reggae music. Example: "Create a laid-back reggae track with offbeat rhythms, groovy basslines, and a relaxed, tropical vibe, perfect for a beach party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Electro Swing</td>
+                    <td>
+                        Generate electro swing music. Example: "Create an upbeat electro swing track with jazzy melodies, swinging rhythms, and modern electronic production, ideal for a retro-inspired dance party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>New Age Meditation</td>
+                    <td>
+                        Generate new age meditation music. Example: "Create a serene new age meditation track with calming soundscapes, gentle melodies, and a peaceful atmosphere, perfect for mindfulness practice."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Baroque Chamber Music</td>
+                    <td>
+                        Generate Baroque chamber music. Example: "Create a Baroque chamber music piece with elegant string arrangements, intricate counterpoint, and a refined, classical atmosphere."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Energetic Workout Music</td>
+                    <td>
+                        Generate energetic workout music. Example: "Create a high-energy workout track with motivating beats, dynamic rhythms, and a powerful drive, ideal for an intense exercise session."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Epic Fantasy Music</td>
+                    <td>
+                        Generate epic fantasy music. Example: "Create an epic fantasy music track with orchestral swells, majestic melodies, and a sense of grandeur, perfect for an adventure in a magical world."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Latin Dance Music</td>
+                    <td>
+                        Generate Latin dance music. Example: "Create an energetic Latin dance track with vibrant rhythms, catchy melodies, and a festive, lively atmosphere, perfect for a salsa party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Peaceful Ambient Soundscape</td>
+                    <td>
+                        Generate a peaceful ambient soundscape. Example: "Create a peaceful ambient soundscape with soothing textures, gentle pads, and a calm, meditative atmosphere, ideal for relaxation."
+                    </td>
+                </tr>
+                <tr>
+                    <td>80s Synth Pop</td>
+                    <td>
+                        Generate 80s synth pop music. Example: "Create an upbeat 80s synth pop track with catchy hooks, nostalgic synths, and a danceable beat, reminiscent of classic 80s pop hits."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bluesy Rock Ballad</td>
+                    <td>
+                        Generate a bluesy rock ballad. Example: "Create a soulful bluesy rock ballad with emotive guitar solos, heartfelt lyrics, and a powerful vocal performance, perfect for a live performance."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Euphoric Trance</td>
+                    <td>
+                        Generate euphoric trance music. Example: "Create a euphoric trance track with uplifting melodies, driving beats, and a high-energy build, perfect for a dance festival."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mystical Ambient Music</td>
+                    <td>
+                        Generate mystical ambient music. Example: "Create a mystical ambient track with ethereal textures, enchanting melodies, and a magical atmosphere, ideal for a journey through an enchanted forest."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Modern Hip-Hop Track</td>
+                    <td>
+                        Generate a modern hip-hop track. Example: "Create a modern hip-hop track with hard-hitting beats, catchy hooks, and slick production, ideal for a contemporary urban vibe."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nature Sound Meditation</td>
+                    <td>
+                        Generate a nature sound meditation track. Example: "Create a relaxing meditation track with soothing nature sounds, gentle melodies, and a peaceful atmosphere, perfect for mindfulness practice."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vintage Swing</td>
+                    <td>
+                        Generate vintage swing music. Example: "Create an energetic vintage swing track with lively brass sections, swinging rhythms, and a joyful, nostalgic vibe, perfect for a retro dance party."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Intense Action Music</td>
+                    <td>
+                        Generate intense action music. Example: "Create a high-energy action music track with driving percussion, intense strings, and dramatic crescendos, ideal for an action-packed scene."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Relaxing Spa Music</td>
+                    <td>
+                        Generate relaxing spa music. Example: "Create a soothing spa music track with gentle melodies, calming pads, and a tranquil atmosphere, perfect for a relaxing spa experience."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Funky Jazz Fusion</td>
+                    <td>
+                        Generate funky jazz fusion music. Example: "Create an upbeat funky jazz fusion track with groovy basslines, energetic solos, and a lively, danceable rhythm."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Ethereal Vocal Music</td>
+                    <td>
+                        Generate ethereal vocal music. Example: "Create an ethereal vocal track with haunting melodies, lush harmonies, and a dreamy, celestial atmosphere, perfect for a mystical experience."
+                    </td>
+                </tr>
+                <tr>
+                    <td>High-Energy Dance Music</td>
+                    <td>
+                        Generate high-energy dance music. Example: "Create a high-energy dance track with infectious beats, catchy hooks, and an exhilarating drop, ideal for a nightclub setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Melancholic Piano Piece</td>
+                    <td>
+                        Generate a melancholic piano piece. Example: "Create a melancholic piano piece with expressive melodies, gentle dynamics, and a reflective atmosphere, ideal for an emotional moment."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Exotic World Beat</td>
+                    <td>
+                        Generate an exotic world beat track. Example: "Create an exotic world beat track with traditional instruments, rhythmic complexity, and an enchanting atmosphere, perfect for a cultural exploration."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Romantic Symphony</td>
+                    <td>
+                        Generate a romantic symphony. Example: "Create a romantic symphony with lush orchestral arrangements, sweeping melodies, and a passionate, emotional atmosphere."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dark Ambient Music</td>
+                    <td>
+                        Generate dark ambient music. Example: "Create a dark ambient track with brooding textures, haunting soundscapes, and a mysterious atmosphere, ideal for a suspenseful setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Energetic Drum and Bass</td>
+                    <td>
+                        Generate energetic drum and bass music. Example: "Create an energetic drum and bass track with fast-paced rhythms, heavy basslines, and a high-energy atmosphere, perfect for an adrenaline rush."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Serene Nature Soundscape</td>
+                    <td>
+                        Generate a serene nature soundscape. Example: "Create a serene nature soundscape with gentle streams, rustling leaves, and distant bird calls, ideal for relaxation and sleep."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Uplifting Gospel Choir</td>
+                    <td>
+                        Generate an uplifting gospel choir track. Example: "Create an uplifting gospel choir track with powerful harmonies, joyous melodies, and a soulful atmosphere, perfect for a celebration of faith."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Magical Fantasy Music</td>
+                    <td>
+                        Generate magical fantasy music. Example: "Create a magical fantasy music track with enchanting melodies, whimsical instruments, and a magical atmosphere, ideal for a fairytale setting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Dynamic Action Score</td>
+                    <td>
+                        Generate a dynamic action score. Example: "Create a dynamic action score with intense orchestral arrangements, powerful percussion, and dramatic crescendos, ideal for a high-stakes scene."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Romantic Acoustic Duet</td>
+                    <td>
+                        Generate a romantic acoustic duet. Example: "Create a heartfelt acoustic duet with tender guitar melodies, emotional vocals, and a warm, intimate atmosphere, perfect for a romantic moment."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Euphoric EDM</td>
+                    <td>
+                        Generate euphoric EDM music. Example: "Create a euphoric EDM track with uplifting melodies, driving beats, and a high-energy build, perfect for a dance festival."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Chilled Trip-Hop</td>
+                    <td>
+                        Generate chilled trip-hop music. Example: "Create a chilled trip-hop track with laid-back beats, mellow melodies, and a smooth, relaxing vibe, ideal for unwinding."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Introspective Folk Music</td>
+                    <td>
+                        Generate introspective folk music. Example: "Create an introspective folk track with gentle acoustic guitars, heartfelt lyrics, and a warm, reflective atmosphere."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Energetic Samba</td>
+                    <td>
+                        Generate energetic samba music. Example: "Create an energetic samba track with lively rhythms, vibrant melodies, and a festive atmosphere, perfect for a carnival."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Modern Classical Music</td>
+                    <td>
+                        Generate modern classical music. Example: "Create a modern classical track with contemporary orchestral arrangements, innovative harmonies, and a sophisticated atmosphere."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Epic Choral Music</td>
+                    <td>
+                        Generate epic choral music. Example: "Create an epic choral track with powerful vocal harmonies, grand orchestral arrangements, and a majestic atmosphere, ideal for a grand scene."
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

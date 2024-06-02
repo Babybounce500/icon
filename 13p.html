@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced DALL-E Prompt Generation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+        .container {
+            max-width: 100%;
+            padding: 0 15px;
+        }
+        .slide {
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0.25rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0,0,0,.15);
+            height: auto;
+            background-color: #007bff;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ffffff;
+            text-align: center;
+        }
+        th {
+            background-color: #0056b3;
+        }
+        @media (max-width: 768px) {
+            .container {
+                width: 100%;
+                padding: 0;
+            }
+            .slide {
+                margin: 0.5rem 0;
+            }
+            table, th, td {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-template">
+
+<div class="container my-5">
+    <div class="slide">
+        <h1>Advanced DALL-E Prompt Generation</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Use Case</th>
+                    <th>Prompts</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Abstract Art</td>
+                    <td>
+                        Generate an abstract art piece with vibrant colors and intricate patterns. Example: "Create an abstract painting with vibrant colors and intricate geometric patterns, evoking a sense of motion and fluidity."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Character Design</td>
+                    <td>
+                        Create a character design for a fantasy novel. Example: "Design a warrior princess with flowing silver hair, wearing ornate armor with intricate designs, standing in a mystical forest."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Landscape Scene</td>
+                    <td>
+                        Generate a serene landscape scene. Example: "Create a serene landscape with rolling hills, a calm river, and a vibrant sunset sky, with soft, warm colors."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Futuristic Cityscape</td>
+                    <td>
+                        Create a futuristic cityscape. Example: "Design a futuristic cityscape at night with towering skyscrapers, neon lights, and flying cars against a starry sky."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Animal Illustration</td>
+                    <td>
+                        Generate a detailed illustration of an animal. Example: "Illustrate a majestic lion with a flowing mane, standing on a rock under a bright blue sky with scattered clouds."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Historical Scene</td>
+                    <td>
+                        Create a historical scene. Example: "Depict a bustling medieval marketplace with vendors selling goods, people in period clothing, and historic buildings in the background."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fantasy Landscape</td>
+                    <td>
+                        Generate a fantasy landscape. Example: "Create a mystical landscape with floating islands, magical creatures, and a glowing moon casting a surreal light over the scene."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Product Advertisement</td>
+                    <td>
+                        Create an eye-catching product advertisement. Example: "Design a modern, sleek advertisement for a new smartphone, showcasing its features with dynamic graphics and vibrant colors."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Surreal Art</td>
+                    <td>
+                        Generate a surreal art piece. Example: "Create a surreal painting with melting clocks, floating objects, and dream-like landscapes inspired by Salvador Dali."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Book Cover</td>
+                    <td>
+                        Design a book cover for a mystery novel. Example: "Design a book cover for a mystery novel titled 'The Secret Garden' with dark, mysterious elements and an enchanting, overgrown garden."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Food Illustration</td>
+                    <td>
+                        Generate a detailed illustration of a dish. Example: "Illustrate a delicious plate of spaghetti carbonara with creamy sauce, crispy bacon, and freshly grated parmesan cheese, garnished with parsley."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fashion Illustration</td>
+                    <td>
+                        Create a fashion illustration. Example: "Design a high-fashion illustration of a model wearing a modern, avant-garde outfit with bold colors and striking accessories."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Vehicle Design</td>
+                    <td>
+                        Generate a concept design for a futuristic vehicle. Example: "Create a concept design for a sleek, futuristic sports car with aerodynamic lines, glowing accents, and advanced technology features."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Mythical Creature</td>
+                    <td>
+                        Create an illustration of a mythical creature. Example: "Illustrate a majestic dragon with shimmering scales, large wings, and fierce eyes, breathing fire in a dark, mystical cave."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Space Scene</td>
+                    <td>
+                        Generate a space scene. Example: "Create a breathtaking space scene with colorful nebulae, distant galaxies, and a spaceship exploring the vastness of the universe."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Portrait</td>
+                    <td>
+                        Create a detailed portrait of a person. Example: "Illustrate a realistic portrait of a woman with curly hair, wearing a hat, and smiling warmly, with soft, natural lighting."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Event Poster</td>
+                    <td>
+                        Design a vibrant event poster. Example: "Create a vibrant poster for a music festival, featuring bold typography, dynamic graphics, and colorful illustrations of musical instruments."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Architectural Design</td>
+                    <td>
+                        Generate an architectural design. Example: "Design a modern architectural concept for a sustainable home, with large glass windows, green roofs, and an open floor plan."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Underwater Scene</td>
+                    <td>
+                        Create an underwater scene. Example: "Illustrate a vibrant underwater scene with colorful coral reefs, exotic fish, and a gentle sea turtle swimming gracefully."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Sports Illustration</td>
+                    <td>
+                        Generate a dynamic sports illustration. Example: "Create a dynamic illustration of a basketball player in mid-air, about to dunk, with a crowd cheering in the background."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fantasy Character</td>
+                    <td>
+                        Design a fantasy character. Example: "Create a detailed character design of an elven mage with glowing eyes, holding a staff with a crystal, standing in an enchanted forest."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Children's Book Illustration</td>
+                    <td>
+                        Create an illustration for a children's book. Example: "Illustrate a whimsical scene from a children's book with friendly animals, a magical treehouse, and bright, cheerful colors."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Medical Illustration</td>
+                    <td>
+                        Generate a detailed medical illustration. Example: "Create a detailed medical illustration of the human heart, showing the anatomy and blood flow, with clear labels and annotations."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Holiday Greeting Card</td>
+                    <td>
+                        Design a festive holiday greeting card. Example: "Create a festive holiday greeting card with a cozy winter scene, featuring a snow-covered cottage, twinkling lights, and a cheerful snowman."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Infographic</td>
+                    <td>
+                        Generate an informative infographic. Example: "Design an informative infographic about the benefits of a healthy diet, with colorful icons, charts, and easy-to-read text."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Technology Illustration</td>
+                    <td>
+                        Create a futuristic technology illustration. Example: "Illustrate a futuristic scene of a smart city with autonomous vehicles, drones, and interconnected digital infrastructure."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Travel Poster</td>
+                    <td>
+                        Design a travel poster. Example: "Create a vintage travel poster for Paris, featuring the Eiffel Tower, charming streets, and iconic landmarks, with warm, nostalgic colors."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Animal Portrait</td>
+                    <td>
+                        Generate a detailed animal portrait. Example: "Create a realistic portrait of a golden retriever with soft, expressive eyes, sitting in a sunny garden."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Scientific Illustration</td>
+                    <td>
+                        Create a detailed scientific illustration. Example: "Illustrate a detailed diagram of the solar system, showing the planets, orbits, and the sun, with clear labels and distances."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Concept Art</td>
+                    <td>
+                        Generate concept art for a video game. Example: "Create concept art for a fantasy video game, featuring a hero character with a sword, exploring a mystical land filled with ancient ruins and magical creatures."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Logo Design</td>
+                    <td>
+                        Create a modern and sleek logo design. Example: "Design a modern and sleek logo for a tech startup, featuring clean lines, geometric shapes, and a vibrant color palette."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Editorial Illustration</td>
+                    <td>
+                        Generate an editorial illustration. Example: "Create an editorial illustration for an article about climate change, featuring a melting earth, rising sea levels, and dramatic weather patterns."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Retro Poster</td>
+                    <td>
+                        Create a retro-style poster. Example: "Design a retro-style poster for a rock concert, featuring bold typography, vibrant colors, and vintage graphic elements."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Food Advertisement</td>
+                    <td>
+                        Generate an appetizing food advertisement. Example: "Create an appetizing advertisement for a new burger, featuring a juicy burger with fresh lettuce, tomatoes, and melted cheese, with a catchy tagline."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Album Cover</td>
+                    <td>
+                        Design an album cover. Example: "Create a striking album cover for a rock band, featuring bold typography, dramatic graphics, and a dark, edgy aesthetic."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Fashion Lookbook</td>
+                    <td>
+                        Generate a fashion lookbook spread. Example: "Create a fashion lookbook spread for a spring collection, featuring models in stylish outfits, set against a backdrop of blooming flowers and sunny skies."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Street Art</td>
+                    <td>
+                        Create a street art mural. Example: "Design a vibrant street art mural for an urban setting, featuring bold colors, dynamic shapes, and a message of community and unity."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gadget Illustration</td>
+                    <td>
+                        Generate a detailed illustration of a high-tech gadget. Example: "Illustrate a detailed diagram of a high-tech smartwatch, showcasing its features, design, and interface with labeled components."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Comic Book Page</td>
+                    <td>
+                        Create a dynamic comic book page. Example: "Design a dynamic comic book page featuring a superhero in action, battling villains in a cityscape, with dramatic panels and vibrant colors."
+                    </td>
+                </tr>
+                <tr>
+                    <td>Interactive Diagram</td>
+                    <td>
+                        Generate an interactive diagram for educational purposes. Example: "Create an interactive diagram explaining the water cycle, with clickable elements that provide more information about each stage."
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
