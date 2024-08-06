@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Irish Exchange</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: '8GW.IR', name: 'Great Western Mining Corp Plc' },
+            { symbol: 'A5G.IR', name: 'AIB Group PLC' },
+            { symbol: 'BIRG.IR', name: 'Bank of Ireland Group PLC' },
+            { symbol: 'C5H.IR', name: 'Cairn Homes PLC' },
+            { symbol: 'CORRE.IR', name: 'Corre Energy BV' },
+            { symbol: 'DHG.IR', name: 'Dalata Hotel Group Plc' },
+            { symbol: 'DLE.IR', name: 'Datalex' },
+            { symbol: 'DQ7A.IR', name: 'Donegal Investment Group PLC' },
+            { symbol: 'EG7.IR', name: 'FBD Holdings PLC' },
+            { symbol: 'GL9.IR', name: 'Glanbia PLC' },
+            { symbol: 'GRP.IR', name: 'Greencoat Renewables PLC' },
+            { symbol: 'GRW.IR', name: 'Draper Esprit plc' },
+            { symbol: 'GVR.IR', name: 'Glenveagh Properties PLC' },
+            { symbol: 'GYQ.IR', name: 'FD Technologies PLC' },
+            { symbol: 'HSW.IR', name: 'Hostelworld Group PLC' },
+            { symbol: 'IR5B.IR', name: 'Irish Continental Group PLC' },
+            { symbol: 'IRES.IR', name: 'Irish Residential Properties' },
+            { symbol: 'KMR.IR', name: 'Kenmare Resources PLC' },
+            { symbol: 'KRX.IR', name: 'Kingspan Group plc' },
+            { symbol: 'KRZ.IR', name: 'Kerry Group' },
+            { symbol: 'MIO.IR', name: 'Mincon Group P' },
+            { symbol: 'MLC.IR', name: 'Malin Corporation plc' },
+            { symbol: 'OIZ.IR', name: 'Origin Enterprises Plc' },
+            { symbol: 'OVXA.IR', name: 'Ovoca Gold PLC' },
+            { symbol: 'PTSB.IR', name: 'PERMANENT TSB GROUP HOLDINGS PLC' },
+            { symbol: 'RYA.IR', name: 'Ryanair Holdings plc' },
+            { symbol: 'UPR.IR', name: 'Uniphar Group PLC' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                analyzeData(stock, data);
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Buenos Aires Exchange</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'AAPL.BA', name: 'Apple Inc DRC' },
+            { symbol: 'AGRO.BA', name: 'Agrometal S.A.I.' },
+            { symbol: 'ALUA.BA', name: 'Aluar Aluminio Argentino' },
+            { symbol: 'BABA.BA', name: 'Alibaba Group Holding Limited' },
+            { symbol: 'BBAR.BA', name: 'BBVA Banco Frances SA' },
+            { symbol: 'BHIP.BA', name: 'Banco Hipotecario SA' },
+            { symbol: 'BMA.BA', name: 'Banco Macro SA B' },
+            { symbol: 'BYMA.BA', name: 'Bolsas y Mercados Argentinos SA' },
+            { symbol: 'CEPU.BA', name: 'Central Puerto S.A.' },
+            { symbol: 'COME.BA', name: 'Sociedad Comercial del Plata S.A.' },
+            { symbol: 'CRES.BA', name: 'Cresud SA' },
+            { symbol: 'CVH.BA', name: 'Cablevision Holding SA' },
+            { symbol: 'EDN.BA', name: 'Empresa Distribuidora y Comercializadora Norte S.A.' },
+            { symbol: 'GGAL.BA', name: 'Grupo Financiero Galicia S.A.' },
+            { symbol: 'LOMA.BA', name: 'Loma Negra Compania Industrial Argentina SA' },
+            { symbol: 'MELI.BA', name: 'MercadoLibre Inc.' },
+            { symbol: 'PAMP.BA', name: 'Pampa Energia SA' },
+            { symbol: 'SUPV.BA', name: 'Grupo Supervielle S.A. B' },
+            { symbol: 'TECO2.BA', name: 'Telecom Argentina' },
+            { symbol: 'YPFD.BA', name: 'YPF S.A. D' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                analyzeData(stock, data);
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>

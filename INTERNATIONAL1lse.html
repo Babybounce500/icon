@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - London Stock Exchange</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'AAL.LSE', name: 'Anglo American plc' },
+            { symbol: 'AZN.LSE', name: 'AstraZeneca plc' },
+            { symbol: 'BARC.LSE', name: 'Barclays plc' },
+            { symbol: 'BP.LSE', name: 'BP plc' },
+            { symbol: 'BATS.LSE', name: 'British American Tobacco plc' },
+            { symbol: 'BHP.LSE', name: 'BHP Group plc' },
+            { symbol: 'DGE.LSE', name: 'Diageo plc' },
+            { symbol: 'GSK.LSE', name: 'GSK plc' },
+            { symbol: 'HSBA.LSE', name: 'HSBC Holdings plc' },
+            { symbol: 'LLOY.LSE', name: 'Lloyds Banking Group plc' },
+            { symbol: 'NG.LSE', name: 'National Grid plc' },
+            { symbol: 'PRU.LSE', name: 'Prudential plc' },
+            { symbol: 'RIO.LSE', name: 'Rio Tinto plc' },
+            { symbol: 'RDSA.LSE', name: 'Royal Dutch Shell plc' },
+            { symbol: 'RBS.LSE', name: 'Royal Bank of Scotland Group plc' },
+            { symbol: 'SBRY.LSE', name: 'J Sainsbury plc' },
+            { symbol: 'TSCO.LSE', name: 'Tesco plc' },
+            { symbol: 'ULVR.LSE', name: 'Unilever plc' },
+            { symbol: 'VOD.LSE', name: 'Vodafone Group plc' },
+            { symbol: 'WTB.LSE', name: 'Whitbread plc' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                analyzeData(stock, data);
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>

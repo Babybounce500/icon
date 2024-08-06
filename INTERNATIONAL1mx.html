@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - MX (Mexican Exchange)</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'AMXB', name: 'America Movil SAB de CV' },
+            { symbol: 'BIMBOA', name: 'Grupo Bimbo S.A.B. de C.V' },
+            { symbol: 'GAPB', name: 'Grupo Aeroportuario del Pacifico S.A.B. de C.V' },
+            { symbol: 'GCARSOA1', name: 'Grupo Carso S.A.B. de C.V' },
+            { symbol: 'ELEKTRA', name: 'Grupo Elektra S.A.B. de C.V' },
+            { symbol: 'CEMEXCPO', name: 'Cemex S.A.B. de C.V' },
+            { symbol: 'GFNORTEO', name: 'Grupo Financiero Banorte S.A.B. de C.V' },
+            { symbol: 'ASURB', name: 'Grupo Aeroportuario del Sureste S.A.B. de C.V' },
+            { symbol: 'GFINBURO', name: 'Grupo Financiero Inbursa S.A.B. de C.V' },
+            { symbol: 'GMEXICOB', name: 'Grupo México S.A.B. de C.V' },
+            { symbol: 'WALMEX', name: 'Wal-Mart de México S.A.B. de C.V' },
+            { symbol: 'FEMSAUB', name: 'Fomento Económico Mexicano S.A.B. de C.V' },
+            { symbol: 'ALFAA', name: 'Alfa S.A.B. de C.V' },
+            { symbol: 'AC', name: 'Arca Continental S.A.B. de C.V' },
+            { symbol: 'CUERVO', name: 'Becle S.A.B. de C.V' },
+            { symbol: 'CHDRAUIB', name: 'Grupo Comercial Chedraui S.A.B. de C.V' },
+            { symbol: 'KIMBERA', name: 'Kimberly-Clark de México S. A. B. de C. V' },
+            { symbol: 'SORIANAB', name: 'Organización Soriana S. A. B. de C. V' },
+            { symbol: 'VOLARA', name: 'Controladora Vuela Compañía de Aviación S.A.B. de C.V' },
+            { symbol: 'OMAB', name: 'Grupo Aeroportuario del Centro Norte S.A.B. de C.V' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}.MX?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                analyzeData(stock, data);
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>

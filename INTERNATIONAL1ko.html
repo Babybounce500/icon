@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Korea Stock Exchange</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: '000020.KO', name: 'Dongwha Pharm.Co.Ltd' },
+            { symbol: '000040.KO', name: 'KR Motors Co. Ltd.' },
+            { symbol: '000050.KO', name: 'Kyungbangco.Ltd' },
+            { symbol: '000070.KO', name: 'Samyang Holdings' },
+            { symbol: '000080.KO', name: 'Hite Jinro' },
+            { symbol: '000100.KO', name: 'Yuhan Corporation' },
+            { symbol: '000120.KO', name: 'CJ Korea Express' },
+            { symbol: '000140.KO', name: 'Hitejinro Holdings' },
+            { symbol: '000150.KO', name: 'Doosan' },
+            { symbol: '000210.KO', name: 'DL Holdings CO. LTD.' },
+            { symbol: '000220.KO', name: 'Yuyu Pharma' },
+            { symbol: '000240.KO', name: 'Hankook Tire Worldwide' },
+            { symbol: '000270.KO', name: 'Kia Corp' },
+            { symbol: '000320.KO', name: 'Norooholdings' },
+            { symbol: '000390.KO', name: 'Samhwa Paint' },
+            { symbol: '000400.KO', name: 'Lotte Non-Life' },
+            { symbol: '000430.KO', name: 'Daewonkangup' },
+            { symbol: '000480.KO', name: 'Chosun Refractories Co Ltd' },
+            { symbol: '000490.KO', name: 'Daedong Ind' },
+            { symbol: '000500.KO', name: 'Gaon Cable' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                analyzeData(stock, data);
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>
