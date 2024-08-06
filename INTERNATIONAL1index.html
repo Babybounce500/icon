@@ -1,0 +1,368 @@
+<!DOCTYPE html> 
+<html lang="de"> 
+<head>     
+    <meta charset="UTF-8">     
+    <meta name="viewport" content="width=device-width, initial-scale=1">     
+    <title>FinTech Dashboard</title>     
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">     
+    <style>
+        body {
+            background-color: #f8f5f5;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .hero {
+            background-image: url('https://babybounce500.github.io/icon/295.webp');
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        .navbar {
+            background-color: #333333;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+        }
+
+        .button.is-primary {
+            background-color: #4CAF50;
+        }
+
+        .chatbox {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100%;
+            max-width: 640px; /* Reduced Size */
+            height: 640px; /* Reduced Size */
+            z-index: 1000;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background: #fff;
+        }
+
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 56px); /* Fullscreen height minus navbar height */
+            margin-top: 20px;
+        }
+
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            overflow-y: auto;
+            transform: translateX(-250px);
+            transition: transform 0.3s ease;
+            z-index: 2000;
+        }
+
+        .sidebar.active {
+            transform: translateX(0);
+        }
+
+        .sidebar .sidebar-header {
+            padding: 20px;
+            background-color: #444;
+            text-align: center;
+            position: relative;
+        }
+
+        .sidebar .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .sidebar a {
+            display: block;
+            padding: 10px 20px;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
+        #sidebar-toggle {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        #sidebar-toggle i {
+            color: white;
+            font-size: 30px;
+        }
+
+        .mobile-arrow {
+            position: fixed;
+            top: calc(4rem + 56px); /* Navbar height + padding adjustment */
+            left: 0;
+            cursor: pointer;
+            z-index: 1001;
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .sidebar {
+                width: 250px;
+            }
+
+            .mobile-arrow i {
+                font-size: 20px;
+            }
+
+            .chatbox {
+                width: 100%;
+                max-width: none;
+                height: 480px; /* Reduced Size */
+            }
+
+            .iframe-container {
+                height: calc(100vh - 56px); /* Fullscreen height minus navbar height */
+                margin-top: 0; /* No margin on mobile for full height use */
+            }
+        }
+    </style> 
+</head> 
+<body>     
+    <!-- Navigation Bar -->     
+    <nav class="navbar is-dark">         
+        <div class="container">             
+            <div class="navbar-brand">                 
+                <a class="navbar-item" href="https://domusaurea.tech/">                     
+                    Domvs Avrea O.P.N GmbH                 
+                </a>                 
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">                     
+                    <span aria-hidden="true"></span>                     
+                    <span aria-hidden="true"></span>                     
+                    <span aria-hidden="true"></span>                 
+                </a>             
+            </div>             
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1xetra.html">XET</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1lse.html">LSE</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1pa.html">PAR</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1vn.html">VIE</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1ta.html">TYO</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1ir.html">IST</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1st.html">STO</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1ba.html">BUE</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1sa.html">SAO</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1ko.html">KOR</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1sw.html">SWI</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1shg.html">SHA</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1is.html">ISR</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1tw.html">TPE</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1mx.html">MEX</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1au.html">AUS</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1bc.html">CAN</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1xnsa.html">NAS</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1egx.html">EGY</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1jse.html">JNB</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1nse.html">IND</a>
+                    <a class="navbar-item" href="https://babybounce500.github.io/icon/INTERNATIONAL1zse.html">ZAM</a>
+                </div>
+            </div>
+            
+        </div>
+    </nav>     
+    <!-- Hero Section -->     
+    <section class="hero is-info is-fullheight-with-navbar">         
+        <div class="hero-body">             
+            <div class="container has-text-centered">                 
+                <h1 class="title">                     
+                    <!-- Title here -->                 
+                </h1>                 
+                <h2 class="subtitle">                     
+                    <!-- Subtitle here -->                 
+                </h2>             
+            </div>         
+        </div>     
+    </section>      
+    <!-- Sidebar Toggle Icon -->          
+    <div class="mobile-arrow" onclick="toggleSidebar()">         
+        <i class="fas fa-arrow-right"></i>         
+        <span>Websites</span>     
+    </div>      
+    <!-- Sidebar -->     
+    <div class="sidebar" id="sidebar">         
+        <div class="sidebar-header">             
+            <h3>Websites</h3>             
+            <i class="fas fa-times close-btn" onclick="toggleSidebar()"></i>         
+        </div>                 
+        <a class="sidebar-item" href="https://fintechai-xvjlofm.gamma.site/">     
+            <i class="fas fa-language"></i> FinTech Deutsch 
+        </a>                           
+        <a class="sidebar-item" href="https://fintech-trading-app-2uzcrq5.gamma.site/">             
+            <i class="fas fa-chart-line"></i> FinTech Trading App         
+        </a>         
+        <a class="sidebar-item" href="https://investment-ai-analysis-vuuirsl.gamma.site/">             
+            <i class="fas fa-robot"></i> Investment AI Analysis         
+        </a>         
+        <a class="sidebar-item" href="https://peakvalleyai-conquer-the-7677mwf.gamma.site/">             
+            <i class="fas fa-mountain"></i> PeakValleyAI         
+        </a>         
+        <a class="sidebar-item" href="https://ai-market-informer--e6nu50w.gamma.site/">             
+            <i class="fas fa-info-circle"></i> AI Market Informer         
+        </a>         
+        <a class="sidebar-item" href="https://investment-and-interest--f9n7jwm.gamma.site/">             
+            <i class="fas fa-hand-holding-usd"></i> Investment and Interest        
+        </a>         
+        <a class="sidebar-item" href="https://ai-financial-news-dashbo-nwaggw4.gamma.site/">             
+            <i class="fas fa-newspaper"></i> AI Financial News Dashboard         
+        </a>         
+        <a class="sidebar-item" href="https://ai-technology-dashboard--yti6spd.gamma.site/">             
+            <i class="fas fa-cogs"></i> AI Technology Dashboard         
+        </a>         
+        <a class="sidebar-item" href="https://the-ultimative-convertib-nqf35du.gamma.site/">             
+            <i class="fas fa-car"></i> The Ultimate Convertible         
+        </a>         
+        <a class="sidebar-item" href="https://domvs-avrea-empowering-t-lnu8h0f.gamma.site/">             
+            <i class="fas fa-bolt"></i> Empowering Technology         
+        </a>         
+        <a class="sidebar-item" href="https://fintech-ai-encyclopedia--d80ycee.gamma.site/">             
+            <i class="fas fa-book"></i> FinTech AI Encyclopedia         
+        </a>         
+        <a class="sidebar-item" href="https://welcome-to-the-future-of-u7cs6i8.gamma.site/">             
+            <i class="fas fa-globe"></i> Future of Finance         
+        </a>         
+        <a class="sidebar-item" href="https://domvs-avrea-opn-pioneeri-yk9ok6s.gamma.site/">             
+            <i class="fas fa-lightbulb"></i> Pioneering FinTech         
+        </a>         
+        <a class="sidebar-item" href="https://fintech-chatbot-exhtdje.gamma.site/">             
+            <i class="fas fa-comments"></i> FinTech Chatbot         
+        </a>         
+        <a class="sidebar-item" href="https://introducing-the-major-bo-wmwudd2.gamma.site/">             
+            <i class="fas fa-user-tie"></i> Major Bot         
+        </a>         
+        <a class="sidebar-item" href="https://broker-bot-danielai-ampl-s56a9yn.gamma.site/">             
+            <i class="fas fa-user-astronaut"></i> Broker Bot         
+        </a>         
+        <a class="sidebar-item" href="https://domvs-avrea-opn-fintech--jqsocm4.gamma.site/">             
+            <i class="fas fa-flask"></i> FinTech Innovation         
+        </a>         
+        <a class="sidebar-item" href="https://fintech-gpt-0lmhtq4.gamma.site/">             
+            <i class="fas fa-brain"></i> FinTech GPT         
+        </a>         
+        <a class="sidebar-item" href="https://domvs-avrea-opn-ai-stock-83lb2mg.gamma.site/">             
+            <i class="fas fa-chart-bar"></i> AI Stock Analysis         
+        </a>     
+    </div>      
+    <!-- Chat Icon -->     
+    <div id="chat-icon" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer; z-index: 1001;">         
+        <img src="https://babybounce500.github.io/icon/310.png" alt="Chat Icon" style="width: 100px; height: 100px;">     
+    </div>      
+    <!-- Chatbot Iframe -->     
+    <div class="chatbox">         
+        <iframe src="https://domusaurea.tech/FINTECHbot.html" frameborder="0" style="width: 100%; height: 100%;"></iframe>     
+    </div>      
+    <!-- Iframe Section -->     
+    <section class="section">         
+        <div class="container">             
+            <div class="iframe-container">                 
+                <iframe src="https://domvs-avrea-opn-pioneeri-yk9ok6s.gamma.site/" frameborder="0" allowfullscreen></iframe>             
+            </div>         
+        </div>     
+    </section>      
+    <!-- Footer -->     
+    <footer class="footer">         
+        <div class="container">             
+            <div class="columns">                 
+                <div class="column has-text-centered">                     
+                    <p><strong>Welcome to Domvs Avrea O.P.N GmbH</strong></p>                     
+                    <p>With a focus on data analysis, risk management, and predictive modeling, we empower organizations to make informed and strategic financial decisions.</p>                 
+                    <p><a href="https://domusaurea.tech/advertising.html" class="button is-primary is-fullwidth" style="margin-top: 10px;">Advertise with us</a></p>
+                </div>                 
+                <div class="column has-text-centered">                     
+                    <p><strong>Contact Information</strong></p>                     
+                    <p>Email: <a href="mailto:daniel@domusaurea.tech" style="color: #4CAF50;">daniel@domusaurea.tech</a></p>                     
+                    <p>Website: <a href="https://domusaurea.tech/" style="color: #4CAF50;">https://domusaurea.tech/</a></p>                     
+                    <p>Phone: <a href="tel:01781133687" style="color: #4CAF50;">0178 1133687</a></p>
+                </div>                 
+                <div class="column has-text-centered">                     
+                    <p><strong>Explore</strong></p>                     
+                    <ul style="list-style: none; padding: 0;">                         
+                        <li><a href="https://domusaurea.tech/KARRIERE.html" style="color: #4CAF50;">Karriere</a></li>                         
+                        <li><a href="https://domusaurea.tech/BLOG3.html" style="color: #4CAF50;">Blog</a></li>                         
+                        <li><a href="https://domusaurea.tech/CAREERS.html" style="color: #4CAF50;">Careers</a></li>                         
+                        <li><a href="https://domvs-avrea-o-p-n.jimdosite.com/consulting/" style="color: #4CAF50;">Support</a></li>                     
+                    </ul>                 
+                </div>                 
+                <div class="column has-text-centered">                     
+                    <p><strong>Legal</strong></p>                     
+                    <ul style="list-style: none; padding: 0;">                         
+                        <li><a href="https://domusaurea.tech/LEGAL.html" style="color: #4CAF50;">Terms of Use</a></li>                         
+                        <li><a href="https://domusaurea.tech/LEGAL.html" style="color: #4CAF50;">Privacy Policy</a></li>                         
+                        <li><a href="https://domusaurea.tech/LEGAL.html" style="color: #4CAF50;">Cookie Policy</a></li>                     
+                    </ul>
+                </div>             
+            </div>         
+        </div>     
+    </footer>      
+    <script>         
+        function toggleSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.classList.toggle("active");
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Navbar Burger Menu
+            var burger = document.querySelector('.navbar-burger');
+            var menu = document.querySelector('.navbar-menu');
+            burger.addEventListener('click', function () {
+                burger.classList.toggle('is-active');
+                menu.classList.toggle('is-active');
+            });
+
+            // Chat Icon Click Event
+            var chatIcon = document.getElementById('chat-icon');
+            var chatbox = document.querySelector('.chatbox');
+            chatIcon.addEventListener('click', function () {
+                chatbox.style.display = (chatbox.style.display === 'none' || chatbox.style.display === '') ? 'block' : 'none';
+            });
+        });
+    </script>
+</body> 
+</html>
