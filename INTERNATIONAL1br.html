@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Euronext Brussels</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'ABI.BR', name: 'Anheuser Busch Inbev SA NV' },
+            { symbol: 'ACKB.BR', name: 'Ackermans & Van Haaren NV' },
+            { symbol: 'AED.BR', name: 'Aedifica' },
+            { symbol: 'AGS.BR', name: 'ageas SA/NV' },
+            { symbol: 'ARGX.BR', name: 'Argen-X' },
+            { symbol: 'BPOST.BR', name: 'Bpost NV' },
+            { symbol: 'COLR.BR', name: 'Etablissementen Franz Colruyt NV' },
+            { symbol: 'COFB.BR', name: 'Cofinimmo SA' },
+            { symbol: 'ELI.BR', name: 'Elia Group SA/NV' },
+            { symbol: 'GBLB.BR', name: 'Groep Brussel Lambert NV' },
+            { symbol: 'KBC.BR', name: 'KBC Groep NV' },
+            { symbol: 'KBCA.BR', name: 'KBC Ancora' },
+            { symbol: 'MELE.BR', name: 'Melexis NV' },
+            { symbol: 'ONTEX.BR', name: 'Ontex Group NV' },
+            { symbol: 'PROX.BR', name: 'Proximus NV' },
+            { symbol: 'SOF.BR', name: 'Sofina Société Anonyme' },
+            { symbol: 'SOLB.BR', name: 'Solvay SA' },
+            { symbol: 'TITC.BR', name: 'Titan Cement International SA' },
+            { symbol: 'UCB.BR', name: 'UCB SA' },
+            { symbol: 'UMI.BR', name: 'Umicore S.A.' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                try {
+                    const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data for ${stock.symbol}`);
+                    }
+                    const data = await response.json();
+                    analyzeData(stock, data);
+                } catch (error) {
+                    console.error(error);
+                    continue;
+                }
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>
