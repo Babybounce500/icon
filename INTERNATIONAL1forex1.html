@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Forex Pairs</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const forexPairs = [
+            { symbol: 'USDEUR.forex', name: 'US Dollar/Euro' },
+            { symbol: 'USDGBP.forex', name: 'US Dollar/UK Pound Sterling' },
+            { symbol: 'USDJPY.forex', name: 'US Dollar/Japanese Yen' },
+            { symbol: 'USDCAD.forex', name: 'US Dollar/Canadian Dollar' },
+            { symbol: 'USDCHF.forex', name: 'US Dollar/Swiss Franc' },
+            { symbol: 'AUDUSD.forex', name: 'Australian Dollar/US Dollar' },
+            { symbol: 'NZDUSD.forex', name: 'New Zealand Dollar/US Dollar' },
+            { symbol: 'EURUSD.forex', name: 'Euro/US Dollar' },
+            { symbol: 'GBPUSD.forex', name: 'UK Pound Sterling/US Dollar' },
+            { symbol: 'EURGBP.forex', name: 'Euro/UK Pound Sterling' },
+            { symbol: 'EURJPY.forex', name: 'Euro/Japanese Yen' },
+            { symbol: 'EURCHF.forex', name: 'Euro/Swiss Franc' },
+            { symbol: 'EURCAD.forex', name: 'Euro/Canadian Dollar' },
+            { symbol: 'GBPJPY.forex', name: 'UK Pound Sterling/Japanese Yen' },
+            { symbol: 'GBPCHF.forex', name: 'UK Pound Sterling/Swiss Franc' },
+            { symbol: 'CADJPY.forex', name: 'Canadian Dollar/Japanese Yen' },
+            { symbol: 'CHFJPY.forex', name: 'Swiss Franc/Japanese Yen' },
+            { symbol: 'AUDJPY.forex', name: 'Australian Dollar/Japanese Yen' },
+            { symbol: 'AUDNZD.forex', name: 'Australian Dollar/New Zealand Dollar' },
+            { symbol: 'NZDJPY.forex', name: 'New Zealand Dollar/Japanese Yen' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const forex of forexPairs) {
+                try {
+                    const apiUrl = `https://eodhistoricaldata.com/api/eod/${forex.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data for ${forex.symbol}`);
+                    }
+                    const data = await response.json();
+                    analyzeData(forex, data);
+                } catch (error) {
+                    console.error(error);
+                    continue;
+                }
+            }
+        }
+
+        function analyzeData(forex, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${forex.name} (${forex.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>
