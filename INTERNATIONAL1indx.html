@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOMENTUM</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .header {
+            background-color: #fff;
+            text-align: center;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .stock-lists {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .stock-list {
+            width: 45%;
+        }
+
+        .stock-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .long { color: green; }
+        .short { color: red; }
+    </style>
+</head>
+<body>
+    <div class="header">MOMENTUM Intraday Trading - Indices</div>
+    <div class="stock-lists">
+        <div class="stock-list" id="long-list">Long Positions</div>
+        <div class="stock-list" id="short-list">Short Positions</div>
+    </div>
+
+    <script>
+        const stocks = [
+            { symbol: 'GSPC.indx', name: 'S&P 500 Index' },
+            { symbol: 'DJI.indx', name: 'Dow Jones Industrial Average' },
+            { symbol: 'IXIC.indx', name: 'NASDAQ Composite' },
+            { symbol: 'RUT.indx', name: 'Russell 2000' },
+            { symbol: 'FTSE.indx', name: 'FTSE 100' },
+            { symbol: 'N225.indx', name: 'Nikkei 225' },
+            { symbol: 'HSI.indx', name: 'Hang Seng Index' },
+            { symbol: 'SSEC.indx', name: 'Shanghai Composite' },
+            { symbol: 'DAX.indx', name: 'DAX 30' },
+            { symbol: 'CAC.indx', name: 'CAC 40' },
+            { symbol: 'STOXX50E.indx', name: 'EuroStoxx 50' },
+            { symbol: 'ASX.indx', name: 'S&P/ASX 200' },
+            { symbol: 'TSX.indx', name: 'S&P/TSX Composite' },
+            { symbol: 'BSESN.indx', name: 'BSE Sensex' },
+            { symbol: 'JKSE.indx', name: 'Jakarta Composite Index' },
+            { symbol: 'KOSPI.indx', name: 'KOSPI' },
+            { symbol: 'IBEX.indx', name: 'IBEX 35' },
+            { symbol: 'MXX.indx', name: 'IPC MEXICO' },
+            { symbol: 'BVSP.indx', name: 'BOVESPA Index' },
+            { symbol: 'RTSI.indx', name: 'RTSI Index (Russia)' }
+        ];
+
+        async function performCandleApiRequest() {
+            for (const stock of stocks) {
+                try {
+                    const apiUrl = `https://eodhistoricaldata.com/api/eod/${stock.symbol}?api_token=64d7d0670ee1f8.90133693&fmt=json`;
+                    const response = await fetch(apiUrl);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch data for ${stock.symbol}`);
+                    }
+                    const data = await response.json();
+                    analyzeData(stock, data);
+                } catch (error) {
+                    console.error(error);
+                    continue;
+                }
+            }
+        }
+
+        function analyzeData(stock, data) {
+            const latestCandle = data[data.length - 1]; // get the latest data point
+            const average = (latestCandle.high + latestCandle.low) / 2;
+            const recommendation = latestCandle.close > average ? "Long" : "Short";
+
+            const stockItem = document.createElement('div');
+            stockItem.className = `stock-item ${recommendation.toLowerCase()}`;
+            stockItem.innerHTML = `
+                <strong>${stock.name} (${stock.symbol})</strong><br>
+                Close: ${latestCandle.close}<br>
+                High: ${latestCandle.high}<br>
+                Low: ${latestCandle.low}<br>
+                Average: ${average.toFixed(2)}
+            `;
+
+            const list = recommendation === "Long" ? document.getElementById('long-list') : document.getElementById('short-list');
+            list.appendChild(stockItem);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            performCandleApiRequest();
+        });
+    </script>
+</body>
+</html>
